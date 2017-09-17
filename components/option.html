@@ -1,0 +1,35 @@
+<div id="option">
+  <h3>Option</h3>
+  <div class="optionItm">
+    <input type="checkbox" v-model="sensorEnabled"/><span class="label">Enable sensor</span>
+  </div>
+  <div class="optionItm">
+    <span class="label">Status sending interval(x10milli sec,set zero to stop reporting)</span><input type="number" v-model="sensorIntv"/>
+  </div>
+  <div class="optionItm">
+    <span class="label">Frequency</span><input type="number" v-model="pwmFreq"/>
+  </div>
+  <div class="optionItm">
+    <button @click="sendOpt">Send Option</button>
+  </div>
+  <h3>Parameters</h3>
+  <div class="optionItm">
+    <span class="label">KP</span><input type="number" step=0.01 v-model="kp"/>
+  </div>
+  <div class="optionItm">
+    <span class="label">KI</span><input type="number" step=0.01 v-model="ki"/>
+  </div>
+  <div class="optionItm">
+    <span class="label">KD</span><input type="number" step=0.01 v-model="kd"/>
+  </div>
+  //Cal
+  //Scale
+  //MotScale
+  <div class="optionItm">
+    <span class="label">accelSamples</span><input type="number" v-model="accelSamples"/>
+  </div>
+  <div class="optionItm">
+    <button @click="sendParam">Send Parameter</button>
+  </div>
+</div>
+

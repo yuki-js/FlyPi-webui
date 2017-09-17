@@ -1,0 +1,7 @@
+<div id="advWrap">
+  <div v-for="(i,ind) in motors">{{i.name}}:<input type="range" @input="changeVal(ind,$event)" min=0 max=255 step=1 :value="i.value" /></div>
+
+  <h3>Current Status</h3>
+  Xaxis(rad) = {{stat.radX}}<br>
+  Yaxis(rad) = {{stat.radY}}<br>
+</div>

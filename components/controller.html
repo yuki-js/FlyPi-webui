@@ -1,0 +1,23 @@
+<div id="ctrlWrap">
+  <div id="background"></div>
+  <div id="controller">
+    <div id="status">
+      Pitch:{{pitch}},Yaw:{{yaw}},Roll:{{roll}},Thro:{{thro}}
+    </div>
+    <div id="left" class="pad">
+      <div id="pitchUp" class="top" @click="control('pitch',10)">Pitch+</div>
+      <div id="yawUp" class="left" @click="control('yaw',10)">Yaw+</div>
+      <div id="yawDown" class="right" @click="control('yaw',-10)">Yaw-</div>
+      <div id="pitchDown" class="bottom" @click="control('pitch',-10)">Pitch-</div>
+    </div>
+    <div id="right" class="pad">
+      <div id="throUp" class="top" @click="control('thro',10)">Thro+</div>
+      <div id="rollUp" class="left" @click="control('roll',10)">Roll+</div>
+      <div id="rollDown" class="right" @click="control('roll',-10)">Roll-</div>
+      <div id="throDown" class="bottom" @click="control('thro',-10)">Thro-</div>
+    </div>
+    <div @click="arm">
+      ARM
+    </div>
+  </div>
+</div>

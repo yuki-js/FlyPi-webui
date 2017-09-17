@@ -1,0 +1,50 @@
+<div id="expert">
+  <select v-model="sendFormat">
+    <option selected="selected" value="">sending format</option>
+    <option value="hex">8 bit Hex(space is ignored)</option>
+    <option value="bin">Binaryx(space is ignored)</option>
+    <option value="ascii">ASCII</option>
+  </select><br>
+  <input placeholder="to send" v-model="sendData" @keyup.enter="send"/>
+  <button @click="send">Send</button>
+
+  <select v-model="receiveFormat">
+    <option value="auto" selected="selected">Detect received data,other is shown by hex</option>
+    <option value="hex">Show by Hex</option>
+    <option value="ascii">ASCII</option>
+  </select>
+
+  <div id="packets">
+    <div class="packet" v-for="packet in packets">
+      <div class="statusPacket" v-if="packet.type=='status'">
+        
+        <div class="accX">{{packet.accX}}</div>
+        <div class="accY">{{packet.accY}}</div>
+        <div class="accZ">{{packet.accZ}}</div>
+        <div class="gyroX">{{packet.gyroX}}</div>
+        <div class="gyroY">{{packet.gyroY}}</div>
+        <div class="gyroZ">{{packet.gyroZ}}</div>
+        <div class="motorValues">
+          <div class="motorV" v-for="m in packet.motors">
+            {{m}}
+          </div>
+        </div>
+        <div class="yaw">{{packet.yaw}}</div>
+        <div class="pitch">{{packet.pitch}}</div>
+        <div class="roll">{{packet.roll}}</div>
+        <div class="thro">{{packet.thro}}</div>
+        <div class="armed">{{packet.armed}}</div>
+      </div>
+      <div class="motorConfig" v-if="packet.motorConfig">
+        <div class="motorItm" v-for="mt in packet.motorConfig">
+          <div class="pin">{{mt.pin}}</div>
+          <div class="name">{{mt.name}}</div>
+          <div class="type">{{mt.type}}</div>
+
+        </div>
+      </div>
+      <div class="rawPacket" v-if="packet.raw">{{packet.raw}}</div>
+      <div class="asciiPacket" v-if="packet.ascii">{{packet.ascii}}</div>
+    </div>
+  </div>
+</div>

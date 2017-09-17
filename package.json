@@ -1,0 +1,31 @@
+{
+  "name": "flypi-web",
+  "version": "1.0.0",
+  "description": "FlyPi Web Client",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "browser-sync": "^2.18.13",
+    "css-loader": "^0.28.7",
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
+    "html-loader": "^0.5.1",
+    "node-sass": "^4.5.3",
+    "run-sequence": "^2.1.0",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "vue-template-compiler": "^2.4.2",
+    "vue-template-loader": "^0.3.1",
+    "webpack-stream": "^4.0.0"
+  },
+  "dependencies": {
+    "normalize.css": "^7.0.0",
+    "vue": "^2.4.2"
+  }
+}

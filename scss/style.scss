@@ -1,0 +1,223 @@
+$padSize:220px;
+$padRadius:30px;
+
+a{
+  color:#0033dd;
+  text-decoration:none;
+  &:link{
+    text-decoration:none;
+  }
+}
+
+
+#tab{
+  position:relative;
+  width:100%;
+  height:45px;
+  line-height: 45px;
+  display:table;
+  table-layout: fixed;
+  border-bottom:1px solid #eee;
+  background:white;
+  opacity:0.6;
+  box-shadow:0 0 5px 1px rgba(0,0,0,0.2);
+  z-index:10;
+  .tabBtn{
+    display: table-cell;
+    text-align:center;
+    height:45px;
+    line-height:45px;
+    color:#454545;
+    &.active{
+      color:#007aff;
+    }
+    &:active{
+      background:#ddd;
+    }
+  }
+}
+
+#ctrlWrap{
+  width:100%;
+  top:0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  position:absolute;
+  #status{
+    position: absolute;
+    bottom: 0;
+    right:0;
+    font-size:small;
+    color:white;
+  }
+  #background{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:black;
+  }
+  .pad{
+    position:absolute;
+    bottom:5%;
+    background:rgba(255,255,255,0.8);
+    width:$padSize;
+    height: $padSize;
+    border-radius:$padRadius;
+    &#left{
+      left:10%;
+    }
+    &#right{
+      right:10%;
+    }
+    .top,.bottom,.left,.right{
+      position:absolute;
+      color:rgba(45,45,45,0.5);
+      text-align:center;
+      font-size:$padSize/6;
+      line-height:200%;
+      vertical-align:middle;
+      &:active{
+        background:white;
+      }
+    }
+    .top{
+      top:0;
+      left:0;
+      right:0;
+      height:30%;
+      width:100%;
+      border-radius:$padRadius $padRadius 0 0;
+    }
+    .left{
+      top:30%;
+      left:0;
+      height:40%;
+      width:50%;
+    }
+    .right{
+      top:30%;
+      right:0;
+      height:40%;
+      width:50%;
+    }
+    .bottom{
+      bottom:0;
+      left:0;
+      right:0;
+      height:30%;
+      width:100%;
+      border-radius:0 0 $padRadius $padRadius;
+    }
+  }
+}
+#expert{
+  .packet{
+    font-size:10px;
+    font-family:monospace;
+    padding:1px;
+    &:nth-child(2n){
+      background: #def;
+    }
+    .statusPacket{
+      &:before{
+        content:"Stat";
+        background:#aaa;
+        border-radius: 3px;
+        display: inline-block;
+        padding:1px;
+      }
+      *{
+        display:inline-block;
+        padding:2px;
+        margin:1px;
+      }
+      .accX,.accY,.accZ{
+        width:60px;
+        background:rgba(255,0,0,0.3);
+      }
+
+      .gyroX,.gyroY,.gyroZ{
+        width:60px;
+        background:rgba(0,255,255,0.3);
+      }
+      
+      .motorV,.yaw,.pitch,.roll,.thro{
+        width:30px;
+      }
+      .motorV{
+        background: rgba(0,0,255,0.3);
+      }
+      .yaw,.pitch,.roll,.thro{
+        background: rgba(0,255,255,0.3);
+      }
+      .armed{
+        background: rgba(255,255,0,0.3);
+      }
+    }
+    .rawPacket{
+      &:before{
+        content:"Raw";
+        background:#aaa;
+        border-radius: 3px;
+        display: inline-block;
+        padding:1px;
+      }
+    }
+    .asciiPacket{
+      &:before{
+        content:"ASCII";
+        background:#aaa;
+        border-radius: 3px;
+        display: inline-block;
+        padding:1px;
+      }
+    }
+    .motorConfig{
+      &:before{
+        content:"Motor";
+        background:#aaa;
+        border-radius: 3px;
+        display: inline-block;
+        padding:1px;
+      }
+      .motorItm{
+        display:inline-block;
+        border-radius:5px;
+        box-shadow:1px 1px 1px 1px rgba(0,0,0,0.5);
+        margin:2px;
+        position: relative;
+        .pin{
+        }
+        .name{
+          font-size:14px;
+          
+        }
+        .type{
+          float: right;
+        }
+      }
+    }
+  }
+}
+#option{
+  .optionItm{
+    border-bottom:1px solid #aaa;
+    line-height:50px;
+    height:50px;
+    padding:0 10px;
+    .label{
+      vertical-align: middle;
+      margin:0 10px;
+    }
+    input[type=checkbox]{
+      width:1.5em;
+      height:1.5em;
+      vertical-align: middle;
+    }
+    .in{
+      float: right;
+    }
+  }
+  
+}

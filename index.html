@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Fly Pi Controller</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="tab">
+        <a href="#" @click.prevent="changeTab('controller')" class="tabBtn" :class="{active:tabName=='controller'}">Controller</a>
+        <a href="#" @click.prevent="changeTab('advanced')" class="tabBtn" :class="{active:tabName=='advanced'}">Advanced</a>
+        <a href="#" @click.prevent="changeTab('option')" class="tabBtn" :class="{active:tabName=='option'}">Option</a>
+        <a href="#" @click.prevent="changeTab('expert')" class="tabBtn" :class="{active:tabName=='expert'}">Expert</a>
+      </div>
+      <div id="main">
+        
+        <controller v-show="tabName=='controller'"></controller>
+        <advanced v-show="tabName=='advanced'"></advanced>
+        <options v-show="tabName=='option'"></options>
+        <expert v-show="tabName=='expert'"></expert>
+      </div>
+    </div>
+    <script src="dist/dist.js"></script>
+  </body>
+</html>
