@@ -3,13 +3,13 @@ const network = require("../js/network")
 module.exports=require("./option.html")({
   data(){
     return {
-      sensorEnabled:true,
-      sensorIntv:0,
-      pwmFreq:334,
+      sensorEnabled:false,
+      sensorIntv:1000,
+      pwmFreq:1600,
 
-      kp:1.3,
-      ki:1.3,
-      kd:1.3,
+      kp:10,
+      ki:0,
+      kd:5,
       xCal:0,
       yCal:0,
       zCal:0,

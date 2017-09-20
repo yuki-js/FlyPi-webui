@@ -723,7 +723,12 @@ exports.send=(byteArr)=>{
   }))
 }
 exports.transform={
-  hex2arr(hex){//no space
+  //<元の形式>2<出力形式>
+  //arr=[0,134,221,255]のようなもの
+  //hex="00345634"
+  //hexはスペース抜き
+  //asciiは、任意の文字列
+  hex2arr(hex){
     const arr =[];
     for(let i=0;i<hex.length;i+=2){
       const num=parseInt(hex[i]+hex[i+1],16);
@@ -734,7 +739,7 @@ exports.transform={
     }
     return arr
   },
-  binStr2arr(bin){//string consisted of 0 and 1
+  binStr2arr(bin){//0、1のみで構成された文字列　
     if(bin.length%8){
       throw new Error("binStr2arr can only parse octet bit string.")
     }
@@ -795,30 +800,16 @@ exports.connect = ()=>new Promise((resolve,reject)=>{
     }
     exports.connected=false;
   })
-
-  //debug
-  sock.on("message",(a)=>{
-    console.log(a)
-  })
-  
 })
-
-exports.parse=(byteArr)=>{
-  
-}
-exports.sendYPRT=(yaw,pitch,roll,thro)=>{
-
-}
 exports.motValTimer=null;
 exports.lastMotVal=[]
 exports.reduceSendingMotVal=motors=>{
+  //スライダーを動かすたびにデータが送られるのは困るので、送信を減らす関数
   if(exports.motValTimer){
     exports.lastMotVal=motors;
   }else{
     exports.sendMotorValue(motors);
 
-
-    
     exports.motValTimer=setTimeout(()=>{
       exports.motValTimer=null;
       if(exports.lastMotVal.length){
@@ -843,41 +834,15 @@ const timing = exports.timing=(time)=>new Promise((resolve,reject)=>{
 
 exports.arm=()=>{
   exports.send([7])
-  return timing(500)
-    .then(()=>{
-      console.log("YAY")
-      return timing(2000)
-    }).then(()=>{
-      console.log("YAY")
-      return timing(1000)
-    }).then(()=>{
-      console.log("YAY")
-      return timing(2500)
-    }).then(()=>{
-      console.log("yay")
-    })
   
 }
 exports.disarm=()=>{
   exports.send([8])
-  return timing(500).then(()=>{
-    console.log("YAY")
-    return timing(2000)
-  }).then(()=>{
-    console.log("YAY")
-    return timing(1000)
-  })
-    .then(()=>{
-      console.log("YAY")
-      return timing(2500)
-    }).then(()=>{
-      console.log("yay")
-    })
   
 }
 
-exports.motorConfigSize=19;
-exports.motorLength = 8;
+exports.motorConfigSize=19;//sizeof(struct motorConfig)
+exports.motorLength = 8;//MOTOR_LENGTH
 
 
 /***/ }),
@@ -4135,7 +4100,7 @@ const vm = exports.vm=new Vue({
     tabName:"controller"
   },
   methods:{
-    changeTab(tabComponentName){
+    changeTab(tabComponentName){//Vue Component(compiled Virtual DOM)で作ったタブ
       this.tabName=tabComponentName
       
     }
@@ -17762,7 +17727,7 @@ module.exports=__webpack_require__(47)({
       roll:0,
       thro:0,
       armed:false,
-      arming:false
+      arming:false,img:""
     }
   },
   methods:{
@@ -17782,7 +17747,7 @@ module.exports=__webpack_require__(47)({
         if(this[axis]<-128){
           this[axis]=-128;
         }
-      }
+      }//crop
       network.send([1,this.yaw,this.pitch,this.roll,this.thro])
     },
     arm(){
@@ -17800,6 +17765,11 @@ module.exports=__webpack_require__(47)({
       })
 
     }
+  },
+  mounted(){
+    setInterval(()=>{
+      this.img="/pic.jpg?t="+Date.now()
+    },800)//カメラデータを受信する
   }
 })
 
@@ -17808,7 +17778,7 @@ module.exports=__webpack_require__(47)({
 /* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"ctrlWrap"}},[_c('div',{attrs:{"id":"background"}}),_vm._v(" "),_c('div',{attrs:{"id":"controller"}},[_c('div',{attrs:{"id":"status"}},[_vm._v("\n      Pitch:"+_vm._s(_vm.pitch)+",Yaw:"+_vm._s(_vm.yaw)+",Roll:"+_vm._s(_vm.roll)+",Thro:"+_vm._s(_vm.thro)+"\n    ")]),_vm._v(" "),_c('div',{staticClass:"pad",attrs:{"id":"left"}},[_c('div',{staticClass:"top",attrs:{"id":"pitchUp"},on:{"click":function($event){_vm.control('pitch',10)}}},[_vm._v("Pitch+")]),_vm._v(" "),_c('div',{staticClass:"left",attrs:{"id":"yawUp"},on:{"click":function($event){_vm.control('yaw',10)}}},[_vm._v("Yaw+")]),_vm._v(" "),_c('div',{staticClass:"right",attrs:{"id":"yawDown"},on:{"click":function($event){_vm.control('yaw',-10)}}},[_vm._v("Yaw-")]),_vm._v(" "),_c('div',{staticClass:"bottom",attrs:{"id":"pitchDown"},on:{"click":function($event){_vm.control('pitch',-10)}}},[_vm._v("Pitch-")])]),_vm._v(" "),_c('div',{staticClass:"pad",attrs:{"id":"right"}},[_c('div',{staticClass:"top",attrs:{"id":"throUp"},on:{"click":function($event){_vm.control('thro',10)}}},[_vm._v("Thro+")]),_vm._v(" "),_c('div',{staticClass:"left",attrs:{"id":"rollUp"},on:{"click":function($event){_vm.control('roll',10)}}},[_vm._v("Roll+")]),_vm._v(" "),_c('div',{staticClass:"right",attrs:{"id":"rollDown"},on:{"click":function($event){_vm.control('roll',-10)}}},[_vm._v("Roll-")]),_vm._v(" "),_c('div',{staticClass:"bottom",attrs:{"id":"throDown"},on:{"click":function($event){_vm.control('thro',-10)}}},[_vm._v("Thro-")])]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.armed),expression:"!armed"}],attrs:{"id":"arm"},on:{"click":_vm.arm}},[_vm._v("\n      "+_vm._s(_vm.arming?"...":"Arm")+"\n    ")]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.armed),expression:"armed"}],attrs:{"id":"disarm"},on:{"click":_vm.disarm}},[_vm._v("\n      "+_vm._s(_vm.arming?"...":"Disarm")+"\n    ")])])])}
+var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"ctrlWrap"}},[_c('div',{attrs:{"id":"background"}},[_c('img',{attrs:{"alt":"","src":_vm.img}})]),_vm._v(" "),_c('div',{attrs:{"id":"controller"}},[_c('div',{attrs:{"id":"status"}},[_vm._v("\n      Pitch:"+_vm._s(_vm.pitch)+",Yaw:"+_vm._s(_vm.yaw)+",Roll:"+_vm._s(_vm.roll)+",Thro:"+_vm._s(_vm.thro)+"\n    ")]),_vm._v(" "),_c('div',{staticClass:"pad",attrs:{"id":"left"}},[_c('div',{staticClass:"top",attrs:{"id":"pitchUp"},on:{"click":function($event){_vm.control('pitch',10)}}},[_vm._v("Pitch+")]),_vm._v(" "),_c('div',{staticClass:"left",attrs:{"id":"yawUp"},on:{"click":function($event){_vm.control('yaw',10)}}},[_vm._v("Yaw+")]),_vm._v(" "),_c('div',{staticClass:"right",attrs:{"id":"yawDown"},on:{"click":function($event){_vm.control('yaw',-10)}}},[_vm._v("Yaw-")]),_vm._v(" "),_c('div',{staticClass:"bottom",attrs:{"id":"pitchDown"},on:{"click":function($event){_vm.control('pitch',-10)}}},[_vm._v("Pitch-")])]),_vm._v(" "),_c('div',{staticClass:"pad",attrs:{"id":"right"}},[_c('div',{staticClass:"top",attrs:{"id":"throUp"},on:{"click":function($event){_vm.control('thro',10)}}},[_vm._v("Thro+")]),_vm._v(" "),_c('div',{staticClass:"left",attrs:{"id":"rollUp"},on:{"click":function($event){_vm.control('roll',10)}}},[_vm._v("Roll+")]),_vm._v(" "),_c('div',{staticClass:"right",attrs:{"id":"rollDown"},on:{"click":function($event){_vm.control('roll',-10)}}},[_vm._v("Roll-")]),_vm._v(" "),_c('div',{staticClass:"bottom",attrs:{"id":"throDown"},on:{"click":function($event){_vm.control('thro',-10)}}},[_vm._v("Thro-")])]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.armed),expression:"!armed"}],attrs:{"id":"arm"},on:{"click":_vm.arm}},[_vm._v("\n      "+_vm._s(_vm.arming?"...":"Arm")+"\n    ")]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.armed),expression:"armed"}],attrs:{"id":"disarm"},on:{"click":_vm.disarm}},[_vm._v("\n      "+_vm._s(_vm.arming?"...":"Disarm")+"\n    ")])])])}
 var staticRenderFns = []
 module.exports = function (_exports) {
   var options = typeof _exports === 'function'
@@ -17865,7 +17835,7 @@ module.exports=__webpack_require__(52)({
         if(typeof(packet)=="string"){
           const pkt=JSON.parse(packet)
           if(pkt.msgBytes.length===40){
-            //status message
+            //制御情報からデータ取り出す
             let buf = Buffer.from(pkt.msgBytes)
 
             const show= {
@@ -18177,13 +18147,13 @@ if (false) {(function () {
 module.exports=__webpack_require__(54)({
   data(){
     return {
-      sensorEnabled:true,
-      sensorIntv:0,
-      pwmFreq:334,
+      sensorEnabled:false,
+      sensorIntv:1000,
+      pwmFreq:1600,
 
-      kp:1.3,
-      ki:1.3,
-      kd:1.3,
+      kp:10,
+      ki:0,
+      kd:5,
       xCal:0,
       yCal:0,
       zCal:0,
@@ -18256,7 +18226,7 @@ module.exports=__webpack_require__(54)({
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"option"}},[_c('h3',[_vm._v("Option")]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.sensorEnabled),expression:"sensorEnabled"}],attrs:{"type":"checkbox"},domProps:{"checked":Array.isArray(_vm.sensorEnabled)?_vm._i(_vm.sensorEnabled,null)>-1:(_vm.sensorEnabled)},on:{"__c":function($event){var $$a=_vm.sensorEnabled,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=null,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.sensorEnabled=$$a.concat($$v))}else{$$i>-1&&(_vm.sensorEnabled=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}}else{_vm.sensorEnabled=$$c}}}}),_c('span',{staticClass:"label"},[_vm._v("Enable sensor")])]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("Status sending interval(x10milli sec,set zero to stop reporting)")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.sensorIntv),expression:"sensorIntv"}],attrs:{"type":"number"},domProps:{"value":(_vm.sensorIntv)},on:{"input":function($event){if($event.target.composing){ return; }_vm.sensorIntv=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("Frequency")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.pwmFreq),expression:"pwmFreq"}],attrs:{"type":"number"},domProps:{"value":(_vm.pwmFreq)},on:{"input":function($event){if($event.target.composing){ return; }_vm.pwmFreq=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('button',{on:{"click":_vm.sendOpt}},[_vm._v("Send Option")])]),_vm._v(" "),_c('h3',[_vm._v("Parameters")]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("KP")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.kp),expression:"kp"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.kp)},on:{"input":function($event){if($event.target.composing){ return; }_vm.kp=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("KI")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.ki),expression:"ki"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.ki)},on:{"input":function($event){if($event.target.composing){ return; }_vm.ki=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("KD")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.kd),expression:"kd"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.kd)},on:{"input":function($event){if($event.target.composing){ return; }_vm.kd=$event.target.value}}})]),_vm._v("\n  //Cal\n  //Scale\n  //MotScale\n  "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("accelSamples")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.accelSamples),expression:"accelSamples"}],attrs:{"type":"number"},domProps:{"value":(_vm.accelSamples)},on:{"input":function($event){if($event.target.composing){ return; }_vm.accelSamples=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('button',{on:{"click":_vm.sendParam}},[_vm._v("Send Parameter")])])])}
+var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"option"}},[_c('h3',[_vm._v("Option")]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.sensorEnabled),expression:"sensorEnabled"}],attrs:{"type":"checkbox"},domProps:{"checked":Array.isArray(_vm.sensorEnabled)?_vm._i(_vm.sensorEnabled,null)>-1:(_vm.sensorEnabled)},on:{"__c":function($event){var $$a=_vm.sensorEnabled,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=null,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.sensorEnabled=$$a.concat($$v))}else{$$i>-1&&(_vm.sensorEnabled=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}}else{_vm.sensorEnabled=$$c}}}}),_c('span',{staticClass:"label"},[_vm._v("Enable sensor")])]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("Status sending interval(x10milli sec,set zero to stop reporting)")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.sensorIntv),expression:"sensorIntv"}],attrs:{"type":"number"},domProps:{"value":(_vm.sensorIntv)},on:{"input":function($event){if($event.target.composing){ return; }_vm.sensorIntv=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("Frequency")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.pwmFreq),expression:"pwmFreq"}],attrs:{"type":"number"},domProps:{"value":(_vm.pwmFreq)},on:{"input":function($event){if($event.target.composing){ return; }_vm.pwmFreq=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('button',{on:{"click":_vm.sendOpt}},[_vm._v("Send Option")])]),_vm._v(" "),_c('h3',[_vm._v("Parameters")]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("KP")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.kp),expression:"kp"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.kp)},on:{"input":function($event){if($event.target.composing){ return; }_vm.kp=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("KI")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.ki),expression:"ki"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.ki)},on:{"input":function($event){if($event.target.composing){ return; }_vm.ki=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("KD")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.kd),expression:"kd"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.kd)},on:{"input":function($event){if($event.target.composing){ return; }_vm.kd=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("Sensor Callibration(x,y,z)=")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.xCal),expression:"xCal"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.xCal)},on:{"input":function($event){if($event.target.composing){ return; }_vm.xCal=$event.target.value}}}),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.yCal),expression:"yCal"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.yCal)},on:{"input":function($event){if($event.target.composing){ return; }_vm.yCal=$event.target.value}}}),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.zCal),expression:"zCal"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.zCal)},on:{"input":function($event){if($event.target.composing){ return; }_vm.zCal=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("axis(y,p,r,t)=")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.yawScale),expression:"yawScale"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.yawScale)},on:{"input":function($event){if($event.target.composing){ return; }_vm.yawScale=$event.target.value}}}),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.pitchScale),expression:"pitchScale"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.pitchScale)},on:{"input":function($event){if($event.target.composing){ return; }_vm.pitchScale=$event.target.value}}}),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.rollScale),expression:"rollScale"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.rollScale)},on:{"input":function($event){if($event.target.composing){ return; }_vm.rollScale=$event.target.value}}}),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.throScale),expression:"throScale"}],attrs:{"type":"number","step":"0.01"},domProps:{"value":(_vm.throScale)},on:{"input":function($event){if($event.target.composing){ return; }_vm.throScale=$event.target.value}}})]),_vm._v("\n  \n  //MotScale\n  "),_c('div',{staticClass:"optionItm"},[_c('span',{staticClass:"label"},[_vm._v("accelSamples")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.accelSamples),expression:"accelSamples"}],attrs:{"type":"number"},domProps:{"value":(_vm.accelSamples)},on:{"input":function($event){if($event.target.composing){ return; }_vm.accelSamples=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"optionItm"},[_c('button',{on:{"click":_vm.sendParam}},[_vm._v("Send Parameter")])])])}
 var staticRenderFns = []
 module.exports = function (_exports) {
   var options = typeof _exports === 'function'
@@ -18330,7 +18300,7 @@ module.exports=__webpack_require__(56)({
           const pkt=JSON.parse(packet)
           if(this.receiveFormat=="auto"){
             if(pkt.msgBytes.length===40){
-              //status message
+              // 制御情報、状態
               let buf = Buffer.from(pkt.msgBytes)
 
               const show= {
@@ -18355,6 +18325,7 @@ module.exports=__webpack_require__(56)({
               show.radY=-Math.atan2(show.accZ,Math.sqrt(show.accX*show.accX+show.accY*show.accY))
               this.packets.unshift(show)
             }else if(pkt.msgBytes.length===motorConfigSize*motorLength){
+              //モータ情報、状態
               const firstData = [];
               let data = Buffer.from(pkt.msgBytes)
 
@@ -18380,7 +18351,7 @@ module.exports=__webpack_require__(56)({
                 this.packets.unshift({raw:network.transform.arr2hex(pkt.msgBytes,true)})
             }
           }
-          if(this.packets.length>30){
+          if(this.packets.length>30){//30ぱけっとまで
             this.packets.pop()
           }
         }

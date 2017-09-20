@@ -11,7 +11,12 @@ exports.send=(byteArr)=>{
   }))
 }
 exports.transform={
-  hex2arr(hex){//no space
+  //<元の形式>2<出力形式>
+  //arr=[0,134,221,255]のようなもの
+  //hex="00345634"
+  //hexはスペース抜き
+  //asciiは、任意の文字列
+  hex2arr(hex){
     const arr =[];
     for(let i=0;i<hex.length;i+=2){
       const num=parseInt(hex[i]+hex[i+1],16);
@@ -22,7 +27,7 @@ exports.transform={
     }
     return arr
   },
-  binStr2arr(bin){//string consisted of 0 and 1
+  binStr2arr(bin){//0、1のみで構成された文字列　
     if(bin.length%8){
       throw new Error("binStr2arr can only parse octet bit string.")
     }
@@ -83,30 +88,16 @@ exports.connect = ()=>new Promise((resolve,reject)=>{
     }
     exports.connected=false;
   })
-
-  //debug
-  sock.on("message",(a)=>{
-    console.log(a)
-  })
-  
 })
-
-exports.parse=(byteArr)=>{
-  
-}
-exports.sendYPRT=(yaw,pitch,roll,thro)=>{
-
-}
 exports.motValTimer=null;
 exports.lastMotVal=[]
 exports.reduceSendingMotVal=motors=>{
+  //スライダーを動かすたびにデータが送られるのは困るので、送信を減らす関数
   if(exports.motValTimer){
     exports.lastMotVal=motors;
   }else{
     exports.sendMotorValue(motors);
 
-
-    
     exports.motValTimer=setTimeout(()=>{
       exports.motValTimer=null;
       if(exports.lastMotVal.length){
@@ -131,38 +122,12 @@ const timing = exports.timing=(time)=>new Promise((resolve,reject)=>{
 
 exports.arm=()=>{
   exports.send([7])
-  return timing(500)
-    .then(()=>{
-      console.log("YAY")
-      return timing(2000)
-    }).then(()=>{
-      console.log("YAY")
-      return timing(1000)
-    }).then(()=>{
-      console.log("YAY")
-      return timing(2500)
-    }).then(()=>{
-      console.log("yay")
-    })
   
 }
 exports.disarm=()=>{
   exports.send([8])
-  return timing(500).then(()=>{
-    console.log("YAY")
-    return timing(2000)
-  }).then(()=>{
-    console.log("YAY")
-    return timing(1000)
-  })
-    .then(()=>{
-      console.log("YAY")
-      return timing(2500)
-    }).then(()=>{
-      console.log("yay")
-    })
   
 }
 
-exports.motorConfigSize=19;
-exports.motorLength = 8;
+exports.motorConfigSize=19;//sizeof(struct motorConfig)
+exports.motorLength = 8;//MOTOR_LENGTH

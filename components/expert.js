@@ -43,7 +43,7 @@ module.exports=require("./expert.html")({
           const pkt=JSON.parse(packet)
           if(this.receiveFormat=="auto"){
             if(pkt.msgBytes.length===40){
-              //status message
+              // 制御情報、状態
               let buf = Buffer.from(pkt.msgBytes)
 
               const show= {
@@ -68,6 +68,7 @@ module.exports=require("./expert.html")({
               show.radY=-Math.atan2(show.accZ,Math.sqrt(show.accX*show.accX+show.accY*show.accY))
               this.packets.unshift(show)
             }else if(pkt.msgBytes.length===motorConfigSize*motorLength){
+              //モータ情報、状態
               const firstData = [];
               let data = Buffer.from(pkt.msgBytes)
 
@@ -93,7 +94,7 @@ module.exports=require("./expert.html")({
                 this.packets.unshift({raw:network.transform.arr2hex(pkt.msgBytes,true)})
             }
           }
-          if(this.packets.length>30){
+          if(this.packets.length>30){//30ぱけっとまで
             this.packets.pop()
           }
         }

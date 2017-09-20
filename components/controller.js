@@ -28,7 +28,7 @@ module.exports=require("./controller.html")({
         if(this[axis]<-128){
           this[axis]=-128;
         }
-      }
+      }//crop
       network.send([1,this.yaw,this.pitch,this.roll,this.thro])
     },
     arm(){
@@ -50,6 +50,6 @@ module.exports=require("./controller.html")({
   mounted(){
     setInterval(()=>{
       this.img="/pic.jpg?t="+Date.now()
-    },800)
+    },800)//カメラデータを受信する
   }
 })

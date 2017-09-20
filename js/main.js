@@ -10,7 +10,7 @@ const vm = exports.vm=new Vue({
     tabName:"controller"
   },
   methods:{
-    changeTab(tabComponentName){
+    changeTab(tabComponentName){//Vue Component(compiled Virtual DOM)で作ったタブ
       this.tabName=tabComponentName
       
     }

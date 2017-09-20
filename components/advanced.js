@@ -26,7 +26,7 @@ module.exports=require("./advanced.html")({
         if(typeof(packet)=="string"){
           const pkt=JSON.parse(packet)
           if(pkt.msgBytes.length===40){
-            //status message
+            //制御情報からデータ取り出す
             let buf = Buffer.from(pkt.msgBytes)
 
             const show= {

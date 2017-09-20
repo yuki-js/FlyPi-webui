@@ -22,8 +22,13 @@
   <div class="optionItm">
     <span class="label">KD</span><input type="number" step=0.01 v-model="kd"/>
   </div>
-  //Cal
-  //Scale
+  <div class="optionItm">
+    <span class="label">Sensor Callibration(x,y,z)=</span><input type="number" step=0.01 v-model="xCal"/><input type="number" step=0.01 v-model="yCal"/><input type="number" step=0.01 v-model="zCal"/>
+  </div>
+  <div class="optionItm">
+    <span class="label">axis(y,p,r,t)=</span><input type="number" step=0.01 v-model="yawScale"/><input type="number" step=0.01 v-model="pitchScale"/><input type="number" step=0.01 v-model="rollScale"/><input type="number" step=0.01 v-model="throScale"/>
+  </div>
+  
   //MotScale
   <div class="optionItm">
     <span class="label">accelSamples</span><input type="number" v-model="accelSamples"/>
