@@ -16,8 +16,11 @@
       <div id="rollDown" class="right" @click="control('roll',-10)">Roll-</div>
       <div id="throDown" class="bottom" @click="control('thro',-10)">Thro-</div>
     </div>
-    <div @click="arm">
-      ARM
+    <div id="arm" @click="arm" v-show="!armed">
+      {{arming?"...":"Arm"}}
+    </div>
+    <div id="disarm" @click="disarm" v-show="armed">
+      {{arming?"...":"Disarm"}}
     </div>
   </div>
 </div>

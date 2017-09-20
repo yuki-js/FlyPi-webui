@@ -125,7 +125,44 @@ exports.sendMotorValue=(motors)=>{
   exports.send(toSend)
 }
 
+const timing = exports.timing=(time)=>new Promise((resolve,reject)=>{
+  setTimeout(resolve,time)
+})
 
+exports.arm=()=>{
+  exports.send([7])
+  return timing(500)
+    .then(()=>{
+      console.log("YAY")
+      return timing(2000)
+    }).then(()=>{
+      console.log("YAY")
+      return timing(1000)
+    }).then(()=>{
+      console.log("YAY")
+      return timing(2500)
+    }).then(()=>{
+      console.log("yay")
+    })
+  
+}
+exports.disarm=()=>{
+  exports.send([8])
+  return timing(500).then(()=>{
+    console.log("YAY")
+    return timing(2000)
+  }).then(()=>{
+    console.log("YAY")
+    return timing(1000)
+  })
+    .then(()=>{
+      console.log("YAY")
+      return timing(2500)
+    }).then(()=>{
+      console.log("yay")
+    })
+  
+}
 
 exports.motorConfigSize=19;
 exports.motorLength = 8;

@@ -7,7 +7,8 @@ module.exports=require("./controller.html")({
       yaw:0,
       roll:0,
       thro:0,
-      armed:false
+      armed:false,
+      arming:false,img:""
     }
   },
   methods:{
@@ -31,12 +32,24 @@ module.exports=require("./controller.html")({
       network.send([1,this.yaw,this.pitch,this.roll,this.thro])
     },
     arm(){
-      this.arm=true;
-      network.send([7])
+      this.armed=true;
+      this.arming=true;
+      network.arm().then(()=>{
+        this.arming=false
+      })
     },
     disarm(){
-      this.arm=false;
-      network.send([8])
+      this.armed=false;
+      this.arming=true;
+      network.disarm().then(()=>{
+        this.arming=false
+      })
+
     }
+  },
+  mounted(){
+    setInterval(()=>{
+      this.img="/pic.jpg?t="+Date.now()
+    },800)
   }
 })

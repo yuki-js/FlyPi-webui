@@ -1,5 +1,7 @@
 $padSize:220px;
 $padRadius:30px;
+$armWidth:30%;
+$armHeight:70px;
 
 a{
   color:#0033dd;
@@ -109,6 +111,33 @@ a{
       width:100%;
       border-radius:0 0 $padRadius $padRadius;
     }
+  }
+
+  #arm,#disarm{
+    position:absolute;
+    bottom: 0;
+    width: $armWidth;
+    left:(100%-$armWidth)/2;
+    height:$armHeight;
+    border-radius:$armHeight/2 $armHeight/2 0 0;
+    text-align: center;
+    line-height: $armHeight;
+    font-size:$armHeight - 8px;
+    color:#fff;
+  }
+  #arm{
+    background: #e50114;
+background: -moz-linear-gradient(top, #e50114 0%, #e30105 55%, #b8000f 100%);
+background: -webkit-linear-gradient(top, #e50114 0%,#e30105 55%,#b8000f 100%);
+background: linear-gradient(to bottom, #e50114 0%,#e30105 55%,#b8000f 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e50114', endColorstr='#b8000f',GradientType=0 );
+  }
+  #disarm{
+    background: #626262;
+    background: -moz-linear-gradient(top, #626262 0%, #616161 55%, #4f4f4f 100%);
+    background: -webkit-linear-gradient(top, #626262 0%,#616161 55%,#4f4f4f 100%);
+    background: linear-gradient(to bottom, #626262 0%,#616161 55%,#4f4f4f 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#626262', endColorstr='#4f4f4f',GradientType=0 );
   }
 }
 #expert{

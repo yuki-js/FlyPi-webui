@@ -837,7 +837,44 @@ exports.sendMotorValue=(motors)=>{
   exports.send(toSend)
 }
 
+const timing = exports.timing=(time)=>new Promise((resolve,reject)=>{
+  setTimeout(resolve,time)
+})
 
+exports.arm=()=>{
+  exports.send([7])
+  return timing(500)
+    .then(()=>{
+      console.log("YAY")
+      return timing(2000)
+    }).then(()=>{
+      console.log("YAY")
+      return timing(1000)
+    }).then(()=>{
+      console.log("YAY")
+      return timing(2500)
+    }).then(()=>{
+      console.log("yay")
+    })
+  
+}
+exports.disarm=()=>{
+  exports.send([8])
+  return timing(500).then(()=>{
+    console.log("YAY")
+    return timing(2000)
+  }).then(()=>{
+    console.log("YAY")
+    return timing(1000)
+  })
+    .then(()=>{
+      console.log("YAY")
+      return timing(2500)
+    }).then(()=>{
+      console.log("yay")
+    })
+  
+}
 
 exports.motorConfigSize=19;
 exports.motorLength = 8;
@@ -14390,7 +14427,7 @@ exports = module.exports = __webpack_require__(10)(undefined);
 
 
 // module
-exports.push([module.i, "a {\n  color: #0033dd;\n  text-decoration: none; }\n  a:link {\n    text-decoration: none; }\n\n#tab {\n  position: relative;\n  width: 100%;\n  height: 45px;\n  line-height: 45px;\n  display: table;\n  table-layout: fixed;\n  border-bottom: 1px solid #eee;\n  background: white;\n  opacity: 0.6;\n  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);\n  z-index: 10; }\n  #tab .tabBtn {\n    display: table-cell;\n    text-align: center;\n    height: 45px;\n    line-height: 45px;\n    color: #454545; }\n    #tab .tabBtn.active {\n      color: #007aff; }\n    #tab .tabBtn:active {\n      background: #ddd; }\n\n#ctrlWrap {\n  width: 100%;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute; }\n  #ctrlWrap #status {\n    position: absolute;\n    bottom: 0;\n    right: 0;\n    font-size: small;\n    color: white; }\n  #ctrlWrap #background {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background: black; }\n  #ctrlWrap .pad {\n    position: absolute;\n    bottom: 5%;\n    background: rgba(255, 255, 255, 0.8);\n    width: 220px;\n    height: 220px;\n    border-radius: 30px; }\n    #ctrlWrap .pad#left {\n      left: 10%; }\n    #ctrlWrap .pad#right {\n      right: 10%; }\n    #ctrlWrap .pad .top, #ctrlWrap .pad .bottom, #ctrlWrap .pad .left, #ctrlWrap .pad .right {\n      position: absolute;\n      color: rgba(45, 45, 45, 0.5);\n      text-align: center;\n      font-size: 36.66667px;\n      line-height: 200%;\n      vertical-align: middle; }\n      #ctrlWrap .pad .top:active, #ctrlWrap .pad .bottom:active, #ctrlWrap .pad .left:active, #ctrlWrap .pad .right:active {\n        background: white; }\n    #ctrlWrap .pad .top {\n      top: 0;\n      left: 0;\n      right: 0;\n      height: 30%;\n      width: 100%;\n      border-radius: 30px 30px 0 0; }\n    #ctrlWrap .pad .left {\n      top: 30%;\n      left: 0;\n      height: 40%;\n      width: 50%; }\n    #ctrlWrap .pad .right {\n      top: 30%;\n      right: 0;\n      height: 40%;\n      width: 50%; }\n    #ctrlWrap .pad .bottom {\n      bottom: 0;\n      left: 0;\n      right: 0;\n      height: 30%;\n      width: 100%;\n      border-radius: 0 0 30px 30px; }\n\n#expert .packet {\n  font-size: 10px;\n  font-family: monospace;\n  padding: 1px; }\n  #expert .packet:nth-child(2n) {\n    background: #def; }\n  #expert .packet .statusPacket:before {\n    content: \"Stat\";\n    background: #aaa;\n    border-radius: 3px;\n    display: inline-block;\n    padding: 1px; }\n  #expert .packet .statusPacket * {\n    display: inline-block;\n    padding: 2px;\n    margin: 1px; }\n  #expert .packet .statusPacket .accX, #expert .packet .statusPacket .accY, #expert .packet .statusPacket .accZ {\n    width: 60px;\n    background: rgba(255, 0, 0, 0.3); }\n  #expert .packet .statusPacket .gyroX, #expert .packet .statusPacket .gyroY, #expert .packet .statusPacket .gyroZ {\n    width: 60px;\n    background: rgba(0, 255, 255, 0.3); }\n  #expert .packet .statusPacket .motorV, #expert .packet .statusPacket .yaw, #expert .packet .statusPacket .pitch, #expert .packet .statusPacket .roll, #expert .packet .statusPacket .thro {\n    width: 30px; }\n  #expert .packet .statusPacket .motorV {\n    background: rgba(0, 0, 255, 0.3); }\n  #expert .packet .statusPacket .yaw, #expert .packet .statusPacket .pitch, #expert .packet .statusPacket .roll, #expert .packet .statusPacket .thro {\n    background: rgba(0, 255, 255, 0.3); }\n  #expert .packet .statusPacket .armed {\n    background: rgba(255, 255, 0, 0.3); }\n  #expert .packet .rawPacket:before {\n    content: \"Raw\";\n    background: #aaa;\n    border-radius: 3px;\n    display: inline-block;\n    padding: 1px; }\n  #expert .packet .asciiPacket:before {\n    content: \"ASCII\";\n    background: #aaa;\n    border-radius: 3px;\n    display: inline-block;\n    padding: 1px; }\n  #expert .packet .motorConfig:before {\n    content: \"Motor\";\n    background: #aaa;\n    border-radius: 3px;\n    display: inline-block;\n    padding: 1px; }\n  #expert .packet .motorConfig .motorItm {\n    display: inline-block;\n    border-radius: 5px;\n    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);\n    margin: 2px;\n    position: relative; }\n    #expert .packet .motorConfig .motorItm .name {\n      font-size: 14px; }\n    #expert .packet .motorConfig .motorItm .type {\n      float: right; }\n\n#option .optionItm {\n  border-bottom: 1px solid #aaa;\n  line-height: 50px;\n  height: 50px;\n  padding: 0 10px; }\n  #option .optionItm .label {\n    vertical-align: middle;\n    margin: 0 10px; }\n  #option .optionItm input[type=checkbox] {\n    width: 1.5em;\n    height: 1.5em;\n    vertical-align: middle; }\n  #option .optionItm .in {\n    float: right; }\n", ""]);
+exports.push([module.i, "a {\n  color: #0033dd;\n  text-decoration: none; }\n  a:link {\n    text-decoration: none; }\n\n#tab {\n  position: relative;\n  width: 100%;\n  height: 45px;\n  line-height: 45px;\n  display: table;\n  table-layout: fixed;\n  border-bottom: 1px solid #eee;\n  background: white;\n  opacity: 0.6;\n  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);\n  z-index: 10; }\n  #tab .tabBtn {\n    display: table-cell;\n    text-align: center;\n    height: 45px;\n    line-height: 45px;\n    color: #454545; }\n    #tab .tabBtn.active {\n      color: #007aff; }\n    #tab .tabBtn:active {\n      background: #ddd; }\n\n#ctrlWrap {\n  width: 100%;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute; }\n  #ctrlWrap #status {\n    position: absolute;\n    bottom: 0;\n    right: 0;\n    font-size: small;\n    color: white; }\n  #ctrlWrap #background {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background: black; }\n  #ctrlWrap .pad {\n    position: absolute;\n    bottom: 5%;\n    background: rgba(255, 255, 255, 0.8);\n    width: 220px;\n    height: 220px;\n    border-radius: 30px; }\n    #ctrlWrap .pad#left {\n      left: 10%; }\n    #ctrlWrap .pad#right {\n      right: 10%; }\n    #ctrlWrap .pad .top, #ctrlWrap .pad .bottom, #ctrlWrap .pad .left, #ctrlWrap .pad .right {\n      position: absolute;\n      color: rgba(45, 45, 45, 0.5);\n      text-align: center;\n      font-size: 36.66667px;\n      line-height: 200%;\n      vertical-align: middle; }\n      #ctrlWrap .pad .top:active, #ctrlWrap .pad .bottom:active, #ctrlWrap .pad .left:active, #ctrlWrap .pad .right:active {\n        background: white; }\n    #ctrlWrap .pad .top {\n      top: 0;\n      left: 0;\n      right: 0;\n      height: 30%;\n      width: 100%;\n      border-radius: 30px 30px 0 0; }\n    #ctrlWrap .pad .left {\n      top: 30%;\n      left: 0;\n      height: 40%;\n      width: 50%; }\n    #ctrlWrap .pad .right {\n      top: 30%;\n      right: 0;\n      height: 40%;\n      width: 50%; }\n    #ctrlWrap .pad .bottom {\n      bottom: 0;\n      left: 0;\n      right: 0;\n      height: 30%;\n      width: 100%;\n      border-radius: 0 0 30px 30px; }\n  #ctrlWrap #arm, #ctrlWrap #disarm {\n    position: absolute;\n    bottom: 0;\n    width: 30%;\n    left: 35%;\n    height: 70px;\n    border-radius: 35px 35px 0 0;\n    text-align: center;\n    line-height: 70px;\n    font-size: 62px;\n    color: #fff; }\n  #ctrlWrap #arm {\n    background: #e50114;\n    background: -moz-linear-gradient(top, #e50114 0%, #e30105 55%, #b8000f 100%);\n    background: -webkit-linear-gradient(top, #e50114 0%, #e30105 55%, #b8000f 100%);\n    background: linear-gradient(to bottom, #e50114 0%, #e30105 55%, #b8000f 100%);\n    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e50114', endColorstr='#b8000f',GradientType=0 ); }\n  #ctrlWrap #disarm {\n    background: #626262;\n    background: -moz-linear-gradient(top, #626262 0%, #616161 55%, #4f4f4f 100%);\n    background: -webkit-linear-gradient(top, #626262 0%, #616161 55%, #4f4f4f 100%);\n    background: linear-gradient(to bottom, #626262 0%, #616161 55%, #4f4f4f 100%);\n    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#626262', endColorstr='#4f4f4f',GradientType=0 ); }\n\n#expert .packet {\n  font-size: 10px;\n  font-family: monospace;\n  padding: 1px; }\n  #expert .packet:nth-child(2n) {\n    background: #def; }\n  #expert .packet .statusPacket:before {\n    content: \"Stat\";\n    background: #aaa;\n    border-radius: 3px;\n    display: inline-block;\n    padding: 1px; }\n  #expert .packet .statusPacket * {\n    display: inline-block;\n    padding: 2px;\n    margin: 1px; }\n  #expert .packet .statusPacket .accX, #expert .packet .statusPacket .accY, #expert .packet .statusPacket .accZ {\n    width: 60px;\n    background: rgba(255, 0, 0, 0.3); }\n  #expert .packet .statusPacket .gyroX, #expert .packet .statusPacket .gyroY, #expert .packet .statusPacket .gyroZ {\n    width: 60px;\n    background: rgba(0, 255, 255, 0.3); }\n  #expert .packet .statusPacket .motorV, #expert .packet .statusPacket .yaw, #expert .packet .statusPacket .pitch, #expert .packet .statusPacket .roll, #expert .packet .statusPacket .thro {\n    width: 30px; }\n  #expert .packet .statusPacket .motorV {\n    background: rgba(0, 0, 255, 0.3); }\n  #expert .packet .statusPacket .yaw, #expert .packet .statusPacket .pitch, #expert .packet .statusPacket .roll, #expert .packet .statusPacket .thro {\n    background: rgba(0, 255, 255, 0.3); }\n  #expert .packet .statusPacket .armed {\n    background: rgba(255, 255, 0, 0.3); }\n  #expert .packet .rawPacket:before {\n    content: \"Raw\";\n    background: #aaa;\n    border-radius: 3px;\n    display: inline-block;\n    padding: 1px; }\n  #expert .packet .asciiPacket:before {\n    content: \"ASCII\";\n    background: #aaa;\n    border-radius: 3px;\n    display: inline-block;\n    padding: 1px; }\n  #expert .packet .motorConfig:before {\n    content: \"Motor\";\n    background: #aaa;\n    border-radius: 3px;\n    display: inline-block;\n    padding: 1px; }\n  #expert .packet .motorConfig .motorItm {\n    display: inline-block;\n    border-radius: 5px;\n    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);\n    margin: 2px;\n    position: relative; }\n    #expert .packet .motorConfig .motorItm .name {\n      font-size: 14px; }\n    #expert .packet .motorConfig .motorItm .type {\n      float: right; }\n\n#option .optionItm {\n  border-bottom: 1px solid #aaa;\n  line-height: 50px;\n  height: 50px;\n  padding: 0 10px; }\n  #option .optionItm .label {\n    vertical-align: middle;\n    margin: 0 10px; }\n  #option .optionItm input[type=checkbox] {\n    width: 1.5em;\n    height: 1.5em;\n    vertical-align: middle; }\n  #option .optionItm .in {\n    float: right; }\n", ""]);
 
 // exports
 
@@ -17724,7 +17761,8 @@ module.exports=__webpack_require__(47)({
       yaw:0,
       roll:0,
       thro:0,
-      armed:false
+      armed:false,
+      arming:false
     }
   },
   methods:{
@@ -17748,12 +17786,19 @@ module.exports=__webpack_require__(47)({
       network.send([1,this.yaw,this.pitch,this.roll,this.thro])
     },
     arm(){
-      this.arm=true;
-      network.send([7])
+      this.armed=true;
+      this.arming=true;
+      network.arm().then(()=>{
+        this.arming=false
+      })
     },
     disarm(){
-      this.arm=false;
-      network.send([8])
+      this.armed=false;
+      this.arming=true;
+      network.disarm().then(()=>{
+        this.arming=false
+      })
+
     }
   }
 })
@@ -17763,7 +17808,7 @@ module.exports=__webpack_require__(47)({
 /* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"ctrlWrap"}},[_c('div',{attrs:{"id":"background"}}),_vm._v(" "),_c('div',{attrs:{"id":"controller"}},[_c('div',{attrs:{"id":"status"}},[_vm._v("\n      Pitch:"+_vm._s(_vm.pitch)+",Yaw:"+_vm._s(_vm.yaw)+",Roll:"+_vm._s(_vm.roll)+",Thro:"+_vm._s(_vm.thro)+"\n    ")]),_vm._v(" "),_c('div',{staticClass:"pad",attrs:{"id":"left"}},[_c('div',{staticClass:"top",attrs:{"id":"pitchUp"},on:{"click":function($event){_vm.control('pitch',10)}}},[_vm._v("Pitch+")]),_vm._v(" "),_c('div',{staticClass:"left",attrs:{"id":"yawUp"},on:{"click":function($event){_vm.control('yaw',10)}}},[_vm._v("Yaw+")]),_vm._v(" "),_c('div',{staticClass:"right",attrs:{"id":"yawDown"},on:{"click":function($event){_vm.control('yaw',-10)}}},[_vm._v("Yaw-")]),_vm._v(" "),_c('div',{staticClass:"bottom",attrs:{"id":"pitchDown"},on:{"click":function($event){_vm.control('pitch',-10)}}},[_vm._v("Pitch-")])]),_vm._v(" "),_c('div',{staticClass:"pad",attrs:{"id":"right"}},[_c('div',{staticClass:"top",attrs:{"id":"throUp"},on:{"click":function($event){_vm.control('thro',10)}}},[_vm._v("Thro+")]),_vm._v(" "),_c('div',{staticClass:"left",attrs:{"id":"rollUp"},on:{"click":function($event){_vm.control('roll',10)}}},[_vm._v("Roll+")]),_vm._v(" "),_c('div',{staticClass:"right",attrs:{"id":"rollDown"},on:{"click":function($event){_vm.control('roll',-10)}}},[_vm._v("Roll-")]),_vm._v(" "),_c('div',{staticClass:"bottom",attrs:{"id":"throDown"},on:{"click":function($event){_vm.control('thro',-10)}}},[_vm._v("Thro-")])]),_vm._v(" "),_c('div',{on:{"click":_vm.arm}},[_vm._v("\n      ARM\n    ")])])])}
+var render = function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"ctrlWrap"}},[_c('div',{attrs:{"id":"background"}}),_vm._v(" "),_c('div',{attrs:{"id":"controller"}},[_c('div',{attrs:{"id":"status"}},[_vm._v("\n      Pitch:"+_vm._s(_vm.pitch)+",Yaw:"+_vm._s(_vm.yaw)+",Roll:"+_vm._s(_vm.roll)+",Thro:"+_vm._s(_vm.thro)+"\n    ")]),_vm._v(" "),_c('div',{staticClass:"pad",attrs:{"id":"left"}},[_c('div',{staticClass:"top",attrs:{"id":"pitchUp"},on:{"click":function($event){_vm.control('pitch',10)}}},[_vm._v("Pitch+")]),_vm._v(" "),_c('div',{staticClass:"left",attrs:{"id":"yawUp"},on:{"click":function($event){_vm.control('yaw',10)}}},[_vm._v("Yaw+")]),_vm._v(" "),_c('div',{staticClass:"right",attrs:{"id":"yawDown"},on:{"click":function($event){_vm.control('yaw',-10)}}},[_vm._v("Yaw-")]),_vm._v(" "),_c('div',{staticClass:"bottom",attrs:{"id":"pitchDown"},on:{"click":function($event){_vm.control('pitch',-10)}}},[_vm._v("Pitch-")])]),_vm._v(" "),_c('div',{staticClass:"pad",attrs:{"id":"right"}},[_c('div',{staticClass:"top",attrs:{"id":"throUp"},on:{"click":function($event){_vm.control('thro',10)}}},[_vm._v("Thro+")]),_vm._v(" "),_c('div',{staticClass:"left",attrs:{"id":"rollUp"},on:{"click":function($event){_vm.control('roll',10)}}},[_vm._v("Roll+")]),_vm._v(" "),_c('div',{staticClass:"right",attrs:{"id":"rollDown"},on:{"click":function($event){_vm.control('roll',-10)}}},[_vm._v("Roll-")]),_vm._v(" "),_c('div',{staticClass:"bottom",attrs:{"id":"throDown"},on:{"click":function($event){_vm.control('thro',-10)}}},[_vm._v("Thro-")])]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.armed),expression:"!armed"}],attrs:{"id":"arm"},on:{"click":_vm.arm}},[_vm._v("\n      "+_vm._s(_vm.arming?"...":"Arm")+"\n    ")]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.armed),expression:"armed"}],attrs:{"id":"disarm"},on:{"click":_vm.disarm}},[_vm._v("\n      "+_vm._s(_vm.arming?"...":"Disarm")+"\n    ")])])])}
 var staticRenderFns = []
 module.exports = function (_exports) {
   var options = typeof _exports === 'function'
