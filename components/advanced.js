@@ -8,7 +8,8 @@ module.exports=require("./advanced.html")({
   data(){
     return {
       motors:[],
-      stat:{}
+      stat:{},
+      gyroSum:{x:0,y:0,z:0}
     }
   },
   methods:{
@@ -51,6 +52,18 @@ module.exports=require("./advanced.html")({
             }
             show.radX=-Math.atan2(show.accY,Math.sqrt(show.accX*show.accX+show.accZ*show.accZ))
             show.radY=-Math.atan2(show.accZ,Math.sqrt(show.accX*show.accX+show.accY*show.accY))
+
+            show.accCubeStyle={
+              translate:"rotateX("+show.radX+"rad) rotateY("+show.radY+"rad)"
+            }
+
+            show.gyroSum.x+=show.gyroX
+            show.gyroSum.y+=show.gyroY
+            show.gyroSum.z+=show.gyroZ
+            
+            show.gyroCubeStyle={
+              translate:"rotateX("+this.gyroSum.x+"rad) rotateY("+show.gyroSum.y+"rad) rotateZ("+show.gyroSum.z+"rad)"
+            }
             this.stat=show
           }else if(pkt.msgBytes.length===motorConfigSize*motorLength){
             let data = Buffer.from(pkt.msgBytes)
