@@ -17863,15 +17863,15 @@ module.exports=__webpack_require__(52)({
             show.radY=-Math.atan2(show.accZ,Math.sqrt(show.accX*show.accX+show.accY*show.accY))
 
             show.accCubeStyle={
-              translate:"rotateX("+show.radX+"rad) rotateY("+show.radY+"rad)"
+              transform:"rotateX("+show.radX+"rad) rotateY("+show.radY+"rad)"
             }
 
-            this.gyroSum.x+=this.gyroX
-            this.gyroSum.y+=this.gyroY
-            this.gyroSum.z+=this.gyroZ
+            this.gyroSum.x+=this.gyroX|0
+            this.gyroSum.y+=this.gyroY|0
+            this.gyroSum.z+=this.gyroZ|0
             
-            this.gyroCubeStyle={
-              translate:"rotateX("+this.gyroSum.x+"rad) rotateY("+this.gyroSum.y+"rad) rotateZ("+this.gyroSum.z+"rad)"
+            show.gyroCubeStyle={
+              transform:"rotateX("+this.gyroSum.x+"rad) rotateY("+this.gyroSum.y+"rad) rotateZ("+this.gyroSum.z+"rad)"
             }
             this.stat=show
           }else if(pkt.msgBytes.length===motorConfigSize*motorLength){

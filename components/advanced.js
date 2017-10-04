@@ -57,9 +57,9 @@ module.exports=require("./advanced.html")({
               transform:"rotateX("+show.radX+"rad) rotateY("+show.radY+"rad)"
             }
 
-            this.gyroSum.x+=this.gyroX|0
-            this.gyroSum.y+=this.gyroY|0
-            this.gyroSum.z+=this.gyroZ|0
+            this.gyroSum.x+=parseFloat(this.gyroX)
+            this.gyroSum.y+=parseFloat(this.gyroY)
+            this.gyroSum.z+=parseFloat(this.gyroZ)
             
             show.gyroCubeStyle={
               transform:"rotateX("+this.gyroSum.x+"rad) rotateY("+this.gyroSum.y+"rad) rotateZ("+this.gyroSum.z+"rad)"
