@@ -6,7 +6,7 @@
   Yaxis(rad) = {{stat.radY}}<br>
   <br/>
   Gyro(rad/s?):{{stat.gyroX}},{{stat.gyroY}},{{stat.gyroZ}} <br/>
-  Gyro Integral:{{gyroSum}} <br/>
+  <span @click="gyroSum={x:0,y:0,z:0}">Gyro Integral:{{gyroSum}}</span> <br/>
 
   <div class="cube" id="accCube" :style='stat.accCubeStyle'>
     <div class="surface front">front</div>
@@ -16,7 +16,7 @@
     <div class="surface bottom">bottom</div>
     <div class="surface back">back</div>
   </div>
-  <div class="cube" id="gyroCube" :style='stat.gyroCubeStyle' @click="gyroSum={}">
+  <div class="cube" id="gyroCube" :style='stat.gyroCubeStyle' >
     <div class="surface front">front</div>
     <div class="surface right">right</div>
     <div class="surface left">left</div>
