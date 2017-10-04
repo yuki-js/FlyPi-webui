@@ -17866,12 +17866,12 @@ module.exports=__webpack_require__(52)({
               translate:"rotateX("+show.radX+"rad) rotateY("+show.radY+"rad)"
             }
 
-            show.gyroSum.x+=show.gyroX
-            show.gyroSum.y+=show.gyroY
-            show.gyroSum.z+=show.gyroZ
+            this.gyroSum.x+=this.gyroX
+            this.gyroSum.y+=this.gyroY
+            this.gyroSum.z+=this.gyroZ
             
-            show.gyroCubeStyle={
-              translate:"rotateX("+this.gyroSum.x+"rad) rotateY("+show.gyroSum.y+"rad) rotateZ("+show.gyroSum.z+"rad)"
+            this.gyroCubeStyle={
+              translate:"rotateX("+this.gyroSum.x+"rad) rotateY("+this.gyroSum.y+"rad) rotateZ("+this.gyroSum.z+"rad)"
             }
             this.stat=show
           }else if(pkt.msgBytes.length===motorConfigSize*motorLength){
