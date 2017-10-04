@@ -17863,7 +17863,7 @@ module.exports=__webpack_require__(52)({
             show.radY=-Math.atan2(show.accZ,Math.sqrt(show.accX*show.accX+show.accY*show.accY))
 
             show.accCubeStyle={
-              transform:"rotateZ("+show.radX+"rad) rotateX("+show.radY+"rad)"
+              transform:"rotateZ("+(-show.radX)+"rad) rotateX("+(-show.radY)+"rad)"
             }
 
             this.gyroSum.x+=parseFloat(show.gyroX)
