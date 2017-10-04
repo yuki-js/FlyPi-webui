@@ -54,7 +54,7 @@ module.exports=require("./advanced.html")({
             show.radY=-Math.atan2(show.accZ,Math.sqrt(show.accX*show.accX+show.accY*show.accY))
 
             show.accCubeStyle={
-              translate:"rotateX("+show.radX+"rad) rotateY("+show.radY+"rad)"
+              transform:"rotateX("+show.radX+"rad) rotateY("+show.radY+"rad)"
             }
 
             this.gyroSum.x+=this.gyroX
@@ -62,7 +62,7 @@ module.exports=require("./advanced.html")({
             this.gyroSum.z+=this.gyroZ
             
             this.gyroCubeStyle={
-              translate:"rotateX("+this.gyroSum.x+"rad) rotateY("+this.gyroSum.y+"rad) rotateZ("+this.gyroSum.z+"rad)"
+              transform:"rotateX("+this.gyroSum.x+"rad) rotateY("+this.gyroSum.y+"rad) rotateZ("+this.gyroSum.z+"rad)"
             }
             this.stat=show
           }else if(pkt.msgBytes.length===motorConfigSize*motorLength){
