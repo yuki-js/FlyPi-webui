@@ -8,7 +8,7 @@ module.exports=require("./controller.html")({
       roll:0,
       thro:0,
       armed:false,
-      arming:false,img:""
+      arming:false,img:"",keyEvt:""
     }
   },
   methods:{
@@ -30,6 +30,7 @@ module.exports=require("./controller.html")({
         }
       }//crop
       network.send([1,this.yaw,this.pitch,this.roll,this.thro])
+      this.keyEvt=""
     },
     arm(){
       this.armed=true;
@@ -49,7 +50,7 @@ module.exports=require("./controller.html")({
   },
   mounted(){
     setInterval(()=>{
-      this.img="/pic.jpg?t="+Date.now()
+      this.img="/pic.jpg?t="+Date.now()%3
     },800)//カメラデータを受信する
   }
 })

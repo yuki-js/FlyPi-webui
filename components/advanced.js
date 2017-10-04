@@ -9,7 +9,8 @@ module.exports=require("./advanced.html")({
     return {
       motors:[],
       stat:{},
-      gyroSum:{x:0,y:0,z:0}
+      gyroSum:{x:0,y:0,z:0},
+      deviceSensor:""
     }
   },
   methods:{
@@ -81,10 +82,16 @@ module.exports=require("./advanced.html")({
         }
         
       })
+    },
+    
+    deviceMotion(){
+      window.addEventListener('deviceorientation',e=>{
+        this.deviceSensor="rotateX("+e.beta+"deg) rotateY("+e.gamma+"deg) rotateZ("+e.alpha+"deg)"
+      })
     }
-
   },
   mounted(){
     network.socket.on("open",()=>this.getMotors())
+    this.deviceMotion()
   }
 })

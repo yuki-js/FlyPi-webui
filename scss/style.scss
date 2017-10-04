@@ -250,6 +250,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e50114', end
   }
   
 }
+
+$cubeWidth:150px;
+$cubeHeight:150px;
+$cubeDepth:50px;
 #advWrap{
   //http://cartman0.hatenablog.com/entry/2015/05/29/173343からお借りしました.
   .cube {
@@ -260,55 +264,75 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e50114', end
     -webkit-transform-style: preserve-3d;
     //border: 5px solid red;
     position: relative;
+    transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg);
   }
 
   .surface {
-    width: 100px;
-    height: 100px;
-    background: rgba(0, 0, 0, 0.1);
-    border: 2px solid gray;
-    position: absolute;
+    width:100px;
+    height:100px;
     left: calc(-100px / 2);
     top: calc(-100px / 2);
+    background: rgba(0, 0, 0, 0.8);
+    
+    border: 2px solid gray;
+    position: absolute;
     text-align: center;
-    line-height: 100px;
   }
 
   .front {
-    transform:
-    translateZ(calc(100px / 2));
-    -webkit-transform:
-    translateZ(calc(100px / 2));
+    transform:translateZ($cubeWidth/2);
+    width:$cubeHeight;
+    height:$cubeDepth;
+    line-height:$cubeDepth;
+    left:-$cubeHeight/2;
+    top: -$cubeDepth/2;
+    background: rgba(0, 255, 0, 0.8);
   }
   .back {
-    transform:
-    translateZ(calc(-100px / 2)) rotateY(180deg);
-    -webkit-transform:
-    translateZ(calc(-100px / 2)) rotateY(180deg);
+    transform:translateZ(-$cubeWidth/2) rotateY(180deg);
+    width:$cubeHeight;
+    height:$cubeDepth;
+    line-height:$cubeDepth;
+    left:-$cubeHeight/2;
+    top: -$cubeDepth/2;
+    background: rgba(0, 0, 255, 0.8);
   }
   .right {
-    transform: 
-    translateX(calc(100px / 2)) rotateY(90deg);
-    -webkit-transform: 
-    translateX(calc(100px / 2)) rotateY(90deg);
+    transform:translateX($cubeHeight/2) rotateY(90deg);
+    width:$cubeWidth;
+    height:$cubeDepth;
+    line-height:$cubeDepth;
+    left:-$cubeWidth/2;
+    top: -$cubeDepth/2;
+    background: rgba(255, 0, 0, 0.8);
   }
   .left {
-    transform:
-    translateX(calc(-100px / 2)) rotateY(-90deg);
-    -webkit-transform:
-    translateX(calc(-100px / 2)) rotateY(-90deg);
+    transform:translateX(-$cubeHeight/2) rotateY(-90deg);
+    width:$cubeWidth;
+    height:$cubeDepth;
+    line-height:$cubeDepth;
+    left:-$cubeWidth/2;
+    top: -$cubeDepth/2;
+    background: rgba(0, 255, 255, 0.8);
   }
   .top{
-    transform:
-    translateY(calc(-100px / 2)) rotateX(90deg);
-    -webkit-transform:
-    translateY(calc(-100px / 2)) rotateX(90deg);
+    transform:translateY($cubeDepth/2) rotateX(90deg);
+    height:$cubeWidth;
+    line-height:$cubeWidth;
+    width:$cubeHeight;
+    top:-$cubeWidth/2;
+    left: -$cubeHeight/2;
+    background: rgba(255, 255, 0, 0.8);
   }
   .bottom{
-    transform:
-    translateY(calc(100px / 2)) rotateX(-90deg) ;
-    -webkit-transform:
-    translateY(calc(100px / 2)) rotateX(-90deg) ;
+    transform:translateY(-$cubeDepth/2) rotateX(-90deg);
+    
+    height:$cubeWidth;
+    line-height:$cubeWidth;
+    width:$cubeHeight;
+    top:-$cubeWidth/2;
+    left: -$cubeHeight/2;
+    background: rgba(255, 0,255, 0.8);
   }
 }
 

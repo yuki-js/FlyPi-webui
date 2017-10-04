@@ -9,18 +9,26 @@
   <span @click="gyroSum={x:0,y:0,z:0}">Gyro Integral:{{gyroSum}}</span> <br/>
 
   <div class="cube" id="accCube" :style='stat.accCubeStyle'>
-    <div class="surface front">front</div>
+    <div class="surface front">(Acc)front</div>
     <div class="surface right">right</div>
     <div class="surface left">left</div>
-    <div class="surface top">top</div>
+    <div class="surface top">(Acc)top</div>
     <div class="surface bottom">bottom</div>
     <div class="surface back">back</div>
   </div>
   <div class="cube" id="gyroCube" :style='stat.gyroCubeStyle' >
-    <div class="surface front">front</div>
+    <div class="surface front">(Gyro)front</div>
     <div class="surface right">right</div>
     <div class="surface left">left</div>
-    <div class="surface top">top</div>
+    <div class="surface top">(Gyro)top</div>
+    <div class="surface bottom">bottom</div>
+    <div class="surface back">back</div>
+  </div>
+  <div class="cube" id="deviceCube" v-show="deviceSensor" :style='{transform:deviceSensor}' >
+    <div class="surface front">(Device)front</div>
+    <div class="surface right">right</div>
+    <div class="surface left">left</div>
+    <div class="surface top">(Device)top</div>
     <div class="surface bottom">bottom</div>
     <div class="surface back">back</div>
   </div>

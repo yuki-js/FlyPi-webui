@@ -122,10 +122,11 @@ const timing = exports.timing=(time)=>new Promise((resolve,reject)=>{
 
 exports.arm=()=>{
   exports.send([7])
-  
+  return Promise.resolve()
 }
 exports.disarm=()=>{
   exports.send([8])
+  return Promise.resolve()
   
 }
 

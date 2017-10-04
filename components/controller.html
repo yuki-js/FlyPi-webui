@@ -5,7 +5,7 @@
   <div id="controller">
     <div id="status">
       Pitch:{{pitch}},Yaw:{{yaw}},Roll:{{roll}},Thro:{{thro}}
-      <input name="" type="text" value="" @keydown.87="control('pitch',10)" @keydown.65="control('yaw',10)" @keydown.68="control('yaw',-10)" @keydown.83="control('pitch',-10)" @keydown.38="control('thro',10)" @keydown.37="control('roll',10)" @keydown.39="control('roll',-10)" @keydown.40="control('thro',-10)" placeholder="Key Input here" @keydown.32="arm"/>
+      <input name="" type="text" v-model="keyEvt" @keydown.87="control('pitch',10)" @keydown.65="control('yaw',10)" @keydown.68="control('yaw',-10)" @keydown.83="control('pitch',-10)" @keydown.38="control('thro',10)" @keydown.37="control('roll',10)" @keydown.39="control('roll',-10)" @keydown.40="control('thro',-10)" placeholder="Key Input here" @keydown.32="arm"/>
     </div>
     <div id="left" class="pad">
       <div id="pitchUp" class="top" @click="control('pitch',10)">Pitch+</div>
