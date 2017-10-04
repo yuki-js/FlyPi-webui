@@ -57,12 +57,12 @@ module.exports=require("./advanced.html")({
               transform:"rotateX("+show.radX+"rad) rotateY("+show.radY+"rad)"
             }
 
-            this.gyroSum.x+=parseFloat(this.gyroX)
-            this.gyroSum.y+=parseFloat(this.gyroY)
-            this.gyroSum.z+=parseFloat(this.gyroZ)
+            this.gyroSum.x+=parseFloat(show.gyroX)
+            this.gyroSum.y+=parseFloat(show.gyroY)
+            this.gyroSum.z+=parseFloat(show.gyroZ)
             
             show.gyroCubeStyle={
-              transform:"rotateX("+this.gyroSum.x+"rad) rotateY("+this.gyroSum.y+"rad) rotateZ("+this.gyroSum.z+"rad)"
+              transform:"rotateY("+this.gyroSum.x+"rad) rotateZ("+this.gyroSum.y+"rad) rotateZ("+this.gyroSum.z+"rad)"
             }
             this.stat=show
           }else if(pkt.msgBytes.length===motorConfigSize*motorLength){
