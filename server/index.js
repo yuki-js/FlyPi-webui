@@ -14,7 +14,7 @@ staticServer.listen(4000,()=>{
   console.info("Listening on port 4000.waiting for connection...")
 })
 const cliSv=engine.attach(staticServer)
-const flySock=null
+let flySock=null
 cliSv.on("connection",(cliSock)=>{
   console.info("Accepted engine.io connection")
   if(!isConnectingWithFly){
