@@ -17,7 +17,7 @@ const cliSv=engine.attach(staticServer)
 const flySock=null
 cliSv.on("connection",(cliSock)=>{
   console.info("Accepted engine.io connection")
-  if(isConnectingWithFly){
+  if(!isConnectingWithFly){
     flySock = net.connect(33400,"flypi.local", () => {
       console.info("Connected to Fly Pi server");
       isConnectingWithFly=true
