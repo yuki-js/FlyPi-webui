@@ -3,12 +3,12 @@ const network = require("../js/network")
 module.exports=require("./option.html")({
   data(){
     return {
-      sensorEnabled:false,
-      sensorIntv:1000,
-      pwmFreq:1600,
+      sensorEnabled:true,
+      sensorIntv:50,
+      pwmFreq:1000,
 
       kp:10,
-      ki:0,
+      ki:2,
       kd:5,
       xCal:0,
       yCal:0,
@@ -17,8 +17,7 @@ module.exports=require("./option.html")({
       pitchScale:1,
       rollScale:1,
       throScale:1,
-      motorCal:[],
-      accelSamples:30
+      motorCal:[]
     }
   },
   methods:{

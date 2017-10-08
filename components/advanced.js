@@ -10,7 +10,8 @@ module.exports=require("./advanced.html")({
       motors:[],
       stat:{},
       gyroSum:{x:0,y:0,z:0},
-      deviceSensor:""
+      deviceSensor:"",
+      gyroIntegral:true
     }
   },
   methods:{
@@ -61,9 +62,15 @@ module.exports=require("./advanced.html")({
             this.gyroSum.x+=parseFloat(show.gyroX)
             this.gyroSum.y+=parseFloat(show.gyroY)
             this.gyroSum.z+=parseFloat(show.gyroZ)
-            
+
+            if(this.gyroIntegral){
             show.gyroCubeStyle={
               transform:"rotateX("+this.gyroSum.x+"rad) rotateY("+this.gyroSum.y+"rad) rotateZ("+this.gyroSum.z+"rad)"
+            }
+            }else{
+show.gyroCubeStyle={
+              transform:"rotateX("+show.x+"rad) rotateY("+show.y+"rad) rotateZ("+show.z+"rad)"
+            }
             }
             this.stat=show
           }else if(pkt.msgBytes.length===motorConfigSize*motorLength){

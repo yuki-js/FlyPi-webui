@@ -5,7 +5,7 @@
   Xaxis(rad) = {{stat.radX}}<br>
   Yaxis(rad) = {{stat.radY}}<br>
   <br/>
-  Gyro(rad/s?):{{stat.gyroX}},{{stat.gyroY}},{{stat.gyroZ}} <br/>
+  <span @click="gyroIntegral=!gyroIntegral">Gyro(rad/s?):{{stat.gyroX}},{{stat.gyroY}},{{stat.gyroZ}} </span><br/>
   <span @click="gyroSum={x:0,y:0,z:0}">Gyro Integral:{{gyroSum}}</span> <br/>
 
   <div class="cube" id="accCube" :style='stat.accCubeStyle'>
