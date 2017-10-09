@@ -19,7 +19,6 @@ module.exports=require("./option.html")({
       pitchScale:1,
       rollScale:1,
       throScale:1,
-      motorCal:[],
       xGyroCal:0,
       yGyroCal:0,
       zGyroCal:0,
@@ -37,7 +36,7 @@ module.exports=require("./option.html")({
       network.send([3,this.sensorEnabled|0,this.sensorIntv|0,pwmFreqLow,pwmFreqHigh])
     },
     sendParam(){
-      const buf = Buffer.allocUnsafe(77)
+      const buf = Buffer.allocUnsafe(86)
       buf.writeUInt8(4,0)
 
       const floatToWrite = [
@@ -47,20 +46,20 @@ module.exports=require("./option.html")({
         this.xCal,
         this.yCal,
         this.zCal,
+        this.xGyroCal,
+        this.yGyroCal,
+        this.zGyroCal,
         this.yawScale,
         this.pitchScale,
         this.rollScale,
         this.throScale,
-        this.xGyroCal,
-        this.yGyroCal,
-        this.zGyroCal,
       ];
       for(let i=0;i<motorLength;i++){
         floatToWrite.push(this.motors[i].calib)
       }
       let cur=0;
       while(cur<floatToWrite.length){
-        buf.writeFloatLE(floatToWrite[cur],cur*4+1)
+        buf.writeFloatLE(parseFloat(floatToWrite[cur]),cur*4+1)
         cur++
       }
       buf.writeUInt8(this.accelSamples|0,cur*4+1)
@@ -95,7 +94,7 @@ module.exports=require("./option.html")({
     },
   },
   mounted(){
-
+    network.socket.on("open",()=>this.getMotors())
   },
   watch:{
     sensorIntv(){
