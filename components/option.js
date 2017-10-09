@@ -1,4 +1,6 @@
 const network = require("../js/network")
+const motorConfigSize=network.motorConfigSize;
+const motorLength=network.motorLength
 
 module.exports=require("./option.html")({
   data(){
@@ -17,7 +19,12 @@ module.exports=require("./option.html")({
       pitchScale:1,
       rollScale:1,
       throScale:1,
-      motorCal:[]
+      motorCal:[],
+      xGyroCal:0,
+      yGyroCal:0,
+      zGyroCal:0,
+
+      motors:[]
     }
   },
   methods:{
@@ -43,10 +50,13 @@ module.exports=require("./option.html")({
         this.yawScale,
         this.pitchScale,
         this.rollScale,
-        this.throScale
+        this.throScale,
+        this.xGyroCal,
+        this.yGyroCal,
+        this.zGyroCal,
       ];
-      for(let i=0;i<network.motorLength;i++){
-        floatToWrite.push(0)
+      for(let i=0;i<motorLength;i++){
+        floatToWrite.push(this.motors[i].calib)
       }
       let cur=0;
       while(cur<floatToWrite.length){
@@ -60,7 +70,29 @@ module.exports=require("./option.html")({
         intArrToSend.push(v)
       }
       network.send(intArrToSend)
-    }
+    },
+    getMotors(){
+      network.send([6])
+      network.socket.on("message",(packet)=>{
+        if(typeof(packet)=="string"){
+          const pkt=JSON.parse(packet)
+          if(pkt.msgBytes.length===motorConfigSize*motorLength){
+            let data = Buffer.from(pkt.msgBytes)
+            this.motors=[]
+            for(let i=0;i<motorLength;i++){
+              this.motors.push({
+                pin:data.readUInt8(motorConfigSize*i,true),
+                name:data.slice(motorConfigSize*i+1,motorConfigSize*i+17).toString().split("\0")[0],
+                type:(data.readUInt8(motorConfigSize*i+17,true)|0).toString(2),
+                calib:0
+              });
+            }
+
+          }
+        }
+        
+      })
+    },
   },
   mounted(){
 
